@@ -1,0 +1,8 @@
+<ul>
+    @for (currency of visibleCurrencies; track $index) {
+        <li>
+            <p>{{ currency.name }}: {{ currency.rate }}</p>
+            <button (click)="deleteCurrencyRate(currency)">Удалить</button>
+        </li>
+    }
+</ul>
