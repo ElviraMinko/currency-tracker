@@ -1,3 +1,4 @@
+<div>{{ actualDateAndTime | date: 'yyyy-MM-dd HH:mm:ss ' }}</div>
 <select [(ngModel)]="selectedCurrencyName">
     <option
         *ngFor="let currencyName of optionalCurrencyNames"
@@ -7,7 +8,7 @@
     </option>
 </select>
 <button (click)="addCurrency()">Добавить</button>
-
+<p *ngIf="!isCurrencySelected">Сначала нужно выбрать валюту</p>
 <ul>
     @for (currency of visibleCurrencies; track $index) {
         <li>
@@ -16,3 +17,4 @@
         </li>
     }
 </ul>
+<p *ngIf="!visibleCurrencies.length">Выберите валюту!</p>

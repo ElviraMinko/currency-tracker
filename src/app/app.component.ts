@@ -6,6 +6,7 @@ import {
     Component,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { interval } from 'rxjs';
 import { CurrencyRatesHttpService } from './currancy-rates.http.service';
 import { CurrencyName, CurrencyRate } from './currency-rate.model';
 
@@ -19,6 +20,8 @@ import { CurrencyName, CurrencyRate } from './currency-rate.model';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
+    actualDateAndTime: Date = new Date();
+    isCurrencySelected: boolean = true;
     selectedCurrencyName: CurrencyName | null = null;
     visibleCurrencies: CurrencyRate[] = [];
     readonly visibleCurrencyNames: Set<CurrencyName> = new Set([
@@ -39,6 +42,8 @@ export class AppComponent {
 
     ngOnInit(): void {
         this.updateVisibleCurrencies();
+        // this.runTimeUpdateProcess();
+        this.runTimeUpdateProcessByRxJs();
     }
 
     deleteCurrencyRate(currency: CurrencyRate): void {
@@ -49,11 +54,14 @@ export class AppComponent {
 
     addCurrency(): void {
         if (this.selectedCurrencyName === null) {
+            this.isCurrencySelected = false;
             return;
         }
+        this.isCurrencySelected = true;
         this.visibleCurrencyNames.add(this.selectedCurrencyName);
         this.optionalCurrencyNames.delete(this.selectedCurrencyName);
         this.updateVisibleCurrencies();
+        this.selectedCurrencyName = null;
     }
 
     updateVisibleCurrencies() {
@@ -66,6 +74,19 @@ export class AppComponent {
                 this.visibleCurrencies = data;
                 this.changeDetector.markForCheck();
             },
+        });
+    }
+    runTimeUpdateProcess() {
+        setInterval(() => {
+            this.actualDateAndTime = new Date();
+            this.changeDetector.markForCheck();
+        }, 1000);
+    }
+
+    runTimeUpdateProcessByRxJs() {
+        interval(1000).subscribe(() => {
+            this.actualDateAndTime = new Date();
+            this.changeDetector.markForCheck();
         });
     }
 }
