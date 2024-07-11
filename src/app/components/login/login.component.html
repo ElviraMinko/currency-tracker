@@ -1,0 +1,35 @@
+<label>Вход</label>
+
+<form [formGroup]="myForm" novalidate (ngSubmit)="submit()">
+    <div>
+        <label>Логин</label><br />
+        <input
+            name="login"
+            formControlName="login"
+            placeholder="Введите логин"
+        />
+
+        @if (
+            myForm.controls['login'].invalid && myForm.controls['login'].touched
+        ) {
+            <p>Не указан логин</p>
+        }
+    </div>
+    <div>
+        <label>Пароль</label><br />
+        <input
+            name="password"
+            formControlName="password"
+            placeholder="Введите пароль"
+        />
+
+        @if (
+            myForm.controls['password'].invalid &&
+            myForm.controls['password'].touched
+        ) {
+            <p>Некорректный Пароль</p>
+        }
+    </div>
+
+    <button [disabled]="myForm.invalid">Войти</button>
+</form>

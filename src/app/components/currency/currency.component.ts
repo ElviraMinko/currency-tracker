@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import {
     ChangeDetectionStrategy,
@@ -7,22 +7,21 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { interval } from 'rxjs';
-import { CurrencyRatesHttpService } from './currancy-rates.http.service';
-import { CurrencyName, CurrencyRate } from './currency-rate.model';
+import { CurrencyRatesHttpService } from '../../currancy-rates.http.service';
+import { CurrencyName, CurrencyRate } from '../../currency-rate.model';
 
 @Component({
-    selector: 'app-root',
+    selector: 'app-currency',
     standalone: true,
-    imports: [HttpClientModule, FormsModule, CommonModule],
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.scss',
+    imports: [HttpClientModule, FormsModule, CommonModule, DecimalPipe],
+    templateUrl: 'currency.component.html',
+    styleUrl: './currency.component.scss',
     providers: [CurrencyRatesHttpService],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
     actualDateAndTime: Date = new Date();
     isCurrencySelected: boolean = true;
-    selectedCurrencyName: CurrencyName | null = null;
     visibleCurrencies: CurrencyRate[] = [];
     readonly visibleCurrencyNames: Set<CurrencyName> = new Set([
         'RUB',
@@ -34,6 +33,8 @@ export class AppComponent {
         'JPY',
         'TRY',
     ]);
+    selectedCurrencyName: CurrencyName | null =
+        [...this.optionalCurrencyNames][0] ?? null;
 
     constructor(
         private readonly httpService: CurrencyRatesHttpService,
@@ -50,6 +51,7 @@ export class AppComponent {
         this.visibleCurrencyNames.delete(currency.name);
         this.optionalCurrencyNames.add(currency.name);
         this.updateVisibleCurrencies();
+        this.selectedCurrencyName = currency.name;
     }
 
     addCurrency(): void {
@@ -61,7 +63,7 @@ export class AppComponent {
         this.visibleCurrencyNames.add(this.selectedCurrencyName);
         this.optionalCurrencyNames.delete(this.selectedCurrencyName);
         this.updateVisibleCurrencies();
-        this.selectedCurrencyName = null;
+        this.selectedCurrencyName = [...this.optionalCurrencyNames][0] ?? null;
     }
 
     updateVisibleCurrencies() {
