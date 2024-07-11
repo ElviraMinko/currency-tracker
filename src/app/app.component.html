@@ -1,3 +1,13 @@
+<select [(ngModel)]="selectedCurrencyName">
+    <option
+        *ngFor="let currencyName of optionalCurrencyNames"
+        [value]="currencyName"
+    >
+        {{ currencyName }}
+    </option>
+</select>
+<button (click)="addCurrency()">Добавить</button>
+
 <ul>
     @for (currency of visibleCurrencies; track $index) {
         <li>
