@@ -6,10 +6,10 @@ import {
     CurrencyName,
     CurrencyRate,
     CurrencyRatesDto,
-} from './currency-rate.model';
+} from '../models/currency-rate.model';
 
 @Injectable()
-export class CurrencyRatesHttpService {
+export class CurrencyRatesHttp {
     readonly apiUrl =
         'https://openexchangerates.org/api/latest.json?app_id=90f7e3e0677d4de29f812687ad7f0764&base=USD&symbols=';
 
