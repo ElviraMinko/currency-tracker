@@ -1,13 +1,15 @@
 <div>{{ actualDateAndTime | date: 'yyyy-MM-dd HH:mm:ss ' }}</div>
-<select [formControl]="selectedCurrencyNameControl">
-    <option
-        *ngFor="let currencyName of optionalCurrencyNames$ | async"
-        [value]="currencyName"
-    >
-        {{ currencyName }}
-    </option>
-</select>
-<button (click)="addCurrency()">Добавить</button>
+<div *ngIf="!(isOptionalCurrencyNamesSetEmpty$ | async)">
+    <select [formControl]="selectedCurrencyNameControl">
+        <option
+            *ngFor="let currencyName of optionalCurrencyNames$ | async"
+            [value]="currencyName"
+        >
+            {{ currencyName }}
+        </option>
+    </select>
+    <button (click)="addCurrency()">Добавить</button>
+</div>
 
 <ul>
     @for (currency of currencyRates$ | async; track $index) {
@@ -17,4 +19,4 @@
         </li>
     }
 </ul>
-<p *ngIf="!visibleCurrencies.length">Выберите валюту!</p>
+<p *ngIf="isSelectedCurrencyNamesSetEmpty$ | async">Выберите валюту!</p>

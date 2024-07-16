@@ -37,6 +37,20 @@ export class CurrencyRatesState {
         this.optionalCurrencyNamesSubject.next(optionalCurrencyNames);
     }
 
+    addCurrencyRate(currencyName: CurrencyName): void {
+        const optionalCurrencyNames = new Set(
+            this.optionalCurrencyNamesSubject.getValue(),
+        );
+        optionalCurrencyNames.delete(currencyName);
+        this.optionalCurrencyNamesSubject.next(optionalCurrencyNames);
+
+        const selectedCurrencyNames = new Set(
+            this.selectedCurrencyNamesSubject.getValue(),
+        );
+        selectedCurrencyNames.add(currencyName);
+        this.selectedCurrencyNamesSubject.next(selectedCurrencyNames);
+    }
+
     getCurrencyNameToSelect(): CurrencyName | null {
         return [...this.optionalCurrencyNamesSubject.getValue()][0] ?? null;
     }

@@ -4,7 +4,10 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    DestroyRef,
+    OnInit,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { interval } from 'rxjs';
 import { CurrencyName, CurrencyRate } from './models/currency-rate.model';
@@ -27,50 +30,47 @@ import { CurrencyRatesState } from './services/currancy-rates.state';
     providers: [CurrencyRatesProvider, CurrencyRatesState, CurrencyRatesHttp],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CurrencyRatesComponent {
-    selectedCurrencyNameControl: FormControl<CurrencyName | null>;
+export class CurrencyRatesComponent implements OnInit {
+    readonly selectedCurrencyNameControl: FormControl<CurrencyName | null>;
     actualDateAndTime: Date = new Date();
-    isCurrencySelected: boolean = true;
-    visibleCurrencies: CurrencyRate[] = [];
-
-    currencyRates$ = this.provider.currencyRates$;
-    optionalCurrencyNames$ = this.state.optionalCurrencyNames$;
+    isSelectedCurrencyNamesSetEmpty$ =
+        this.provider.isSelectedCurrencyNamesSetEmpty$;
+    isOptionalCurrencyNamesSetEmpty$ =
+        this.provider.isOptionalCurrencyNamesSetEmpty$;
+    readonly currencyRates$ = this.provider.currencyRates$;
+    readonly optionalCurrencyNames$ = this.provider.optionalCurrencyNames$;
 
     constructor(
         private readonly provider: CurrencyRatesProvider,
         private readonly changeDetector: ChangeDetectorRef,
-        private readonly state: CurrencyRatesState,
+        private readonly destroyRef: DestroyRef,
     ) {
         this.selectedCurrencyNameControl = new FormControl<CurrencyName | null>(
-            this.state.getCurrencyNameToSelect(),
+            this.provider.getCurrencyNameToSelect(),
         );
     }
 
     ngOnInit(): void {
-        // this.updateVisibleCurrencies();
-        // this.runTimeUpdateProcess();
         this.runTimeUpdateProcessByRxJs();
     }
 
     deleteCurrencyRate(currency: CurrencyRate): void {
-        this.state.deleteCurrencyRate(currency.name);
+        this.provider.deleteCurrencyRate(currency.name);
     }
 
     addCurrency(): void {
-        console.log(this.selectedCurrencyNameControl.value);
+        if (!this.selectedCurrencyNameControl.value) {
+            return;
+        }
+        this.provider.addCurrencyRate(this.selectedCurrencyNameControl.value);
     }
 
-    runTimeUpdateProcess() {
-        setInterval(() => {
-            this.actualDateAndTime = new Date();
-            this.changeDetector.markForCheck();
-        }, 1000);
-    }
-
-    runTimeUpdateProcessByRxJs() {
-        interval(1000).subscribe(() => {
-            this.actualDateAndTime = new Date();
-            this.changeDetector.markForCheck();
-        });
+    runTimeUpdateProcessByRxJs(): void {
+        interval(1000)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(() => {
+                this.actualDateAndTime = new Date();
+                this.changeDetector.markForCheck();
+            });
     }
 }

@@ -10,8 +10,9 @@ import {
 
 @Injectable()
 export class CurrencyRatesHttp {
-    readonly apiUrl =
-        'https://openexchangerates.org/api/latest.json?app_id=90f7e3e0677d4de29f812687ad7f0764&base=USD&symbols=';
+    readonly API_TOKEN = '90f7e3e0677d4de29f812687ad7f0764';
+    readonly API_BASE_CURRENCY: CurrencyName = 'USD';
+    readonly API_URL = `https://openexchangerates.org/api/latest.json?app_id=${this.API_TOKEN}&base=${this.API_BASE_CURRENCY}&symbols=`;
 
     constructor(private readonly http: HttpClient) {}
 
@@ -19,7 +20,7 @@ export class CurrencyRatesHttp {
         currencyNames: Set<CurrencyName>,
     ): Observable<CurrencyRate[]> {
         return this.http
-            .get<CurrencyRatesDto>(this.apiUrl + [...currencyNames].join())
+            .get<CurrencyRatesDto>(this.API_URL + [...currencyNames].join())
             .pipe(
                 map((response) => {
                     let currencyRatesList: CurrencyRate[] = [];
