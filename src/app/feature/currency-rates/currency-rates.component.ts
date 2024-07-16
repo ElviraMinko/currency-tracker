@@ -5,9 +5,9 @@ import {
     ChangeDetectorRef,
     Component,
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { interval } from 'rxjs';
-import { CurrencyRate } from './models/currency-rate.model';
+import { CurrencyName, CurrencyRate } from './models/currency-rate.model';
 import { CurrencyRatesHttp } from './services/currancy-rates.http';
 import { CurrencyRatesProvider } from './services/currancy-rates.provider';
 import { CurrencyRatesState } from './services/currancy-rates.state';
@@ -17,7 +17,7 @@ import { CurrencyRatesState } from './services/currancy-rates.state';
     standalone: true,
     imports: [
         HttpClientModule,
-        FormsModule,
+        ReactiveFormsModule,
         CommonModule,
         DecimalPipe,
         AsyncPipe,
@@ -28,19 +28,23 @@ import { CurrencyRatesState } from './services/currancy-rates.state';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CurrencyRatesComponent {
+    selectedCurrencyNameControl: FormControl<CurrencyName | null>;
     actualDateAndTime: Date = new Date();
     isCurrencySelected: boolean = true;
     visibleCurrencies: CurrencyRate[] = [];
 
     currencyRates$ = this.provider.currencyRates$;
     optionalCurrencyNames$ = this.state.optionalCurrencyNames$;
-    currencyNameToSelect$ = this.state.currencyNameToSelect$;
 
     constructor(
         private readonly provider: CurrencyRatesProvider,
         private readonly changeDetector: ChangeDetectorRef,
         private readonly state: CurrencyRatesState,
-    ) {}
+    ) {
+        this.selectedCurrencyNameControl = new FormControl<CurrencyName | null>(
+            this.state.getCurrencyNameToSelect(),
+        );
+    }
 
     ngOnInit(): void {
         // this.updateVisibleCurrencies();
@@ -52,17 +56,9 @@ export class CurrencyRatesComponent {
         this.state.deleteCurrencyRate(currency.name);
     }
 
-    // addCurrency(): void {
-    //     if (this.selectedCurrencyName === null) {
-    //         this.isCurrencySelected = false;
-    //         return;
-    //     }
-    //     this.isCurrencySelected = true;
-    //     this.visibleCurrencyNames.add(this.selectedCurrencyName);
-    //     this.optionalCurrencyNames.delete(this.selectedCurrencyName);
-    //     this.updateVisibleCurrencies();
-    //     this.selectedCurrencyName = [...this.optionalCurrencyNames][0] ?? null;
-    // }
+    addCurrency(): void {
+        console.log(this.selectedCurrencyNameControl.value);
+    }
 
     runTimeUpdateProcess() {
         setInterval(() => {

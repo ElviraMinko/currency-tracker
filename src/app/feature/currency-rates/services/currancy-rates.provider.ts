@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { merge, NEVER, Observable, switchMap, tap } from 'rxjs';
+import { merge, NEVER, Observable, of, switchMap, tap } from 'rxjs';
 import { CurrencyRate } from '../models/currency-rate.model';
 import { CurrencyRatesHttp } from './currancy-rates.http';
 import { CurrencyRatesState } from './currancy-rates.state';
@@ -18,9 +18,13 @@ export class CurrencyRatesProvider {
 
     fetchCurrencyRates(): Observable<CurrencyRate[]> {
         return this.state.selectedCurrencyNames$.pipe(
-            switchMap((currencyNames) =>
-                this.http.getCurrencyRates(currencyNames),
-            ),
+            switchMap((currencyNames) => {
+                if (currencyNames.size) {
+                    return this.http.getCurrencyRates(currencyNames);
+                } else {
+                    return of([]);
+                }
+            }),
             tap((currencyRates) => {
                 this.state.setCurrencyRates(currencyRates);
             }),
