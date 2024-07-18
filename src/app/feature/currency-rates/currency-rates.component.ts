@@ -1,5 +1,5 @@
 import { AsyncPipe, CommonModule, DecimalPipe } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -11,9 +11,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { interval } from 'rxjs';
 import { CurrencyName, CurrencyRate } from './models/currency-rate.model';
-import { CurrencyRatesHttp } from './services/currancy-rates.http';
+import { CurrencyRatesDataSource } from './models/currency-rates-data-source.model';
 import { CurrencyRatesProvider } from './services/currancy-rates.provider';
 import { CurrencyRatesState } from './services/currancy-rates.state';
+import { currencyRatesDataSourceFactory } from './utils/currency-rates-data-source.factory';
 
 @Component({
     selector: 'app-currency',
@@ -27,7 +28,15 @@ import { CurrencyRatesState } from './services/currancy-rates.state';
     ],
     templateUrl: 'currency-rates.component.html',
     styleUrl: './currency-rates.component.scss',
-    providers: [CurrencyRatesProvider, CurrencyRatesState, CurrencyRatesHttp],
+    providers: [
+        CurrencyRatesProvider,
+        CurrencyRatesState,
+        {
+            provide: CurrencyRatesDataSource,
+            useFactory: currencyRatesDataSourceFactory,
+            deps: [HttpClient],
+        },
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CurrencyRatesComponent implements OnInit {
