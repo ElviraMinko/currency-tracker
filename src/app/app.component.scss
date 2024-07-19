@@ -1,0 +1,23 @@
+:host {
+    display: contents;
+}
+
+.layout {
+    height: 100%;
+
+    .footer {
+        text-align: center;
+    }
+
+    .inner-layout {
+        padding: 24px 24px 0 24px;
+
+        .content {
+            padding: 24px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}

@@ -1,5 +1,5 @@
 import { AsyncPipe, CommonModule, DecimalPipe } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -19,13 +19,7 @@ import { currencyRatesDataSourceFactory } from './utils/currency-rates-data-sour
 @Component({
     selector: 'app-currency',
     standalone: true,
-    imports: [
-        HttpClientModule,
-        ReactiveFormsModule,
-        CommonModule,
-        DecimalPipe,
-        AsyncPipe,
-    ],
+    imports: [ReactiveFormsModule, CommonModule, DecimalPipe, AsyncPipe],
     templateUrl: 'currency-rates.component.html',
     styleUrl: './currency-rates.component.scss',
     providers: [

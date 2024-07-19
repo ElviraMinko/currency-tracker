@@ -1,38 +1,65 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
     FormControl,
     FormGroup,
-    FormsModule,
+    NonNullableFormBuilder,
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+
+type LoginFormGroup = FormGroup<{
+    login: FormControl<string>;
+    password: FormControl<string>;
+    remember: FormControl<boolean>;
+}>;
 
 @Component({
     selector: 'app-login',
     standalone: true,
     templateUrl: 'login.component.html',
-    imports: [RouterLink, FormsModule, CommonModule, ReactiveFormsModule],
+    styleUrl: './login.component.scss',
+    imports: [
+        ReactiveFormsModule,
+        NzButtonModule,
+        NzLayoutModule,
+        NzFormModule,
+        NzCheckboxModule,
+        NzInputModule,
+        NzGridModule,
+        NzIconModule,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
-    myForm: FormGroup;
-    login: string = '';
-    password: string = '';
-    isLoginValid: boolean = true;
-    isPasswordValid: boolean = true;
-    errorLoginMessage = '';
-    errorPasswordMessage = '';
+    loginForm: LoginFormGroup;
 
-    constructor(private router: Router) {
-        this.myForm = new FormGroup({
-            login: new FormControl('', [Validators.required, Validators.email]),
-            password: new FormControl('', [Validators.required]),
-        });
+    constructor(
+        private readonly router: Router,
+        private readonly formBuilder: NonNullableFormBuilder,
+    ) {
+        this.loginForm = this.createLoginForm();
     }
 
-    submit() {
-        this.router.navigate(['/currency']);
+    submitForm(): void {
+        if (this.loginForm.valid) {
+            this.router.navigate(['/currency']);
+            return;
+        }
+    }
+
+    private createLoginForm(): LoginFormGroup {
+        return this.formBuilder.group({
+            login: ['', [Validators.required, Validators.email]],
+            password: ['', [Validators.required]],
+            remember: [true],
+        });
     }
 }

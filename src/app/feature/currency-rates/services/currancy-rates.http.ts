@@ -11,7 +11,7 @@ import { CurrencyRatesDataSource } from '../models/currency-rates-data-source.mo
 
 @Injectable()
 export class CurrencyRatesHttp implements CurrencyRatesDataSource {
-    readonly API_TOKEN = '90f7e3e0677d4de29f812687ad7f0764';
+    readonly API_TOKEN = '2fab86d1871f4f4a98f8e9344f665f24';
     readonly API_BASE_CURRENCY: CurrencyName = 'USD';
     readonly API_URL = `https://openexchangerates.org/api/latest.json?app_id=${this.API_TOKEN}&base=${this.API_BASE_CURRENCY}&symbols=`;
 

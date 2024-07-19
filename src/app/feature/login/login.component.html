@@ -1,35 +1,44 @@
-<label>Вход</label>
-
-<form [formGroup]="myForm" novalidate (ngSubmit)="submit()">
-    <div>
-        <label>Логин</label><br />
-        <input
-            name="login"
-            formControlName="login"
-            placeholder="Введите логин"
-        />
-
-        @if (
-            myForm.controls['login'].invalid && myForm.controls['login'].touched
-        ) {
-            <p>Не указан логин</p>
-        }
+<form
+    nz-form
+    [formGroup]="loginForm"
+    class="login-form"
+    (ngSubmit)="submitForm()">
+    <nz-form-item class="login-form-item">
+        <nz-form-control nzErrorTip="Некорректный логин">
+            <nz-input-group nzPrefixIcon="user">
+                <input
+                    type="text"
+                    nz-input
+                    formControlName="login"
+                    placeholder="Логин"
+                    class="input" />
+            </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="login-form-item">
+        <nz-form-control nzErrorTip="Некорректный пароль">
+            <nz-input-group nzPrefixIcon="lock">
+                <input
+                    type="password"
+                    nz-input
+                    formControlName="password"
+                    placeholder="Пароль"
+                    class="input" />
+            </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+    <div nz-row>
+        <div nz-col [nzSpan]="24">
+            <label nz-checkbox formControlName="remember">
+                <span>Запомнить меня</span>
+            </label>
+        </div>
     </div>
-    <div>
-        <label>Пароль</label><br />
-        <input
-            name="password"
-            formControlName="password"
-            placeholder="Введите пароль"
-        />
-
-        @if (
-            myForm.controls['password'].invalid &&
-            myForm.controls['password'].touched
-        ) {
-            <p>Некорректный Пароль</p>
-        }
-    </div>
-
-    <button [disabled]="myForm.invalid">Войти</button>
+    <button
+        nz-button
+        class="login-button"
+        [nzType]="'primary'"
+        [disabled]="loginForm.invalid">
+        Войти
+    </button>
 </form>

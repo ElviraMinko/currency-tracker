@@ -1,17 +1,24 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter, Routes } from '@angular/router';
 
-// компоненты, которые сопоставляются с маршрутами
+import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { CurrencyRatesComponent } from './feature/currency-rates/currency-rates.component';
 import { LoginComponent } from './feature/login/login.component';
 
-// определение маршрутов
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
-    { path: 'currency', component: CurrencyRatesComponent },
+    {
+        path: 'currency',
+        component: CurrencyRatesComponent,
+    },
     { path: '**', redirectTo: '/' },
 ];
 
 export const appConfig: ApplicationConfig = {
-    providers: [provideRouter(appRoutes)],
+    providers: [
+        provideRouter(appRoutes),
+        provideAnimations(),
+        provideHttpClient(),
+    ],
 };
