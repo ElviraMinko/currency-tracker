@@ -1,22 +1,28 @@
-<div>{{ actualDateAndTime | date: 'yyyy-MM-dd HH:mm:ss ' }}</div>
-<div *ngIf="!(isOptionalCurrencyNamesSetEmpty$ | async)">
-    <select [formControl]="selectedCurrencyNameControl">
-        <option
-            *ngFor="let currencyName of optionalCurrencyNames$ | async"
-            [value]="currencyName"
-        >
-            {{ currencyName }}
-        </option>
-    </select>
-    <button (click)="addCurrency()">Добавить</button>
-</div>
-
-<ul>
-    @for (currency of currencyRates$ | async; track $index) {
-        <li>
-            <p>{{ currency.name }}: {{ currency.rate | number: '1.1-2' }}</p>
-            <button (click)="deleteCurrencyRate(currency)">Удалить</button>
-        </li>
-    }
-</ul>
+<!-- <div>{{ actualDateAndTime | date: 'yyyy-MM-dd HH:mm:ss ' }}</div> -->
 <p *ngIf="isSelectedCurrencyNamesSetEmpty$ | async">Выберите валюту!</p>
+<nz-list class="currency-list">
+    @for (currency of currencyDescription$ | async; track $index) {
+        <nz-list-item>
+            <nz-list-item-meta
+                nzAvatar="{{ currency.iconUrl }}"
+                nzDescription="{{ currency.countryName }}">
+                <nz-list-item-meta-title>
+                    {{ currency.name }}
+                </nz-list-item-meta-title>
+            </nz-list-item-meta>
+            {{ currency.rate | number: '1.1-2' }}$
+            <ul nz-list-item-actions>
+                <nz-list-item-action
+                    ><a (click)="deleteCurrencyRate(currency)"
+                        >Удалить</a
+                    ></nz-list-item-action
+                >
+            </ul>
+        </nz-list-item>
+    }
+</nz-list>
+<div *ngIf="!(isOptionalCurrencyNamesSetEmpty$ | async)">
+    <button nz-button nzType="primary" (click)="openCurrencySelectModal()">
+        <span>Добавить валюту</span>
+    </button>
+</div>

@@ -1,0 +1,10 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .currency-list {
+        min-width: 300px;
+        margin-bottom: 12px;
+    }
+}

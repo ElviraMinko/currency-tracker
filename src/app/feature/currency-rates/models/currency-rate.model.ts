@@ -3,6 +3,11 @@ export type CurrencyRate = {
     rate: number;
 };
 
+export type CurrencyDescription = {
+    iconUrl: string;
+    countryName: string;
+} & CurrencyRate;
+
 export type CurrencyRatesDto = {
     base: string;
     rates: { [name: string]: number };

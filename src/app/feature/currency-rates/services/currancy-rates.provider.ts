@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { map, merge, NEVER, Observable, of, switchMap, tap } from 'rxjs';
-import { CurrencyName, CurrencyRate } from '../models/currency-rate.model';
+import {
+    CurrencyDescription,
+    CurrencyName,
+    CurrencyRate,
+} from '../models/currency-rate.model';
 import { CurrencyRatesDataSource } from '../models/currency-rates-data-source.model';
+import { mapCurrencyCountries } from './../constants/currency-rate.constant';
 import { CurrencyRatesState } from './currancy-rates.state';
 
 @Injectable()
 export class CurrencyRatesProvider {
-    readonly currencyRates$: Observable<CurrencyRate[]>;
+    readonly currencyDescription$: Observable<CurrencyDescription[]>;
     readonly optionalCurrencyNames$ = this.state.optionalCurrencyNames$;
     readonly isSelectedCurrencyNamesSetEmpty$: Observable<boolean>;
     readonly isOptionalCurrencyNamesSetEmpty$: Observable<boolean>;
@@ -15,7 +20,7 @@ export class CurrencyRatesProvider {
         private readonly dataSource: CurrencyRatesDataSource,
         private readonly state: CurrencyRatesState,
     ) {
-        this.currencyRates$ = this.createCurrencyRates$();
+        this.currencyDescription$ = this.createCurrencyDescription$();
         this.isSelectedCurrencyNamesSetEmpty$ =
             this.createisSelectedCurrencyNamesSetEmpty$();
         this.isOptionalCurrencyNamesSetEmpty$ =
@@ -32,7 +37,18 @@ export class CurrencyRatesProvider {
                 }
             }),
             tap((currencyRates) => {
-                this.state.setCurrencyRates(currencyRates);
+                this.state.setCurrencyDescription(
+                    currencyRates.map((currencyRate) => {
+                        const currencyCountry =
+                            mapCurrencyCountries[currencyRate.name];
+                        return {
+                            iconUrl: currencyCountry.iconUrl,
+                            countryName: currencyCountry.countryName,
+                            name: currencyRate.name,
+                            rate: currencyRate.rate,
+                        };
+                    }),
+                );
             }),
         );
     }
@@ -41,17 +57,20 @@ export class CurrencyRatesProvider {
         this.state.deleteCurrencyRate(currencyName);
     }
 
-    addCurrencyRate(currencyName: CurrencyName): void {
+    addCurrencyRate(currencyName: CurrencyName[]): void {
         this.state.addCurrencyRate(currencyName);
     }
 
     getCurrencyNameToSelect(): CurrencyName | null {
         return this.state.getCurrencyNameToSelect();
     }
+    getOptionalCurrencyNames(): Set<CurrencyName> {
+        return this.state.getOptionalCurrencyNames();
+    }
 
-    private createCurrencyRates$(): Observable<CurrencyRate[]> {
+    private createCurrencyDescription$(): Observable<CurrencyDescription[]> {
         return merge(
-            this.state.currencyRates$,
+            this.state.currencyDescription$,
             this.fetchCurrencyRates().pipe(switchMap(() => NEVER)),
         );
     }
