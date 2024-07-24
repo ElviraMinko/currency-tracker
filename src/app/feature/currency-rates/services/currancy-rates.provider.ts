@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map, merge, NEVER, Observable, of, switchMap, tap } from 'rxjs';
+import { DataState } from '../../../core/models/data-state.model';
 import {
     CurrencyDescription,
     CurrencyName,
@@ -11,7 +12,7 @@ import { CurrencyRatesState } from './currancy-rates.state';
 
 @Injectable()
 export class CurrencyRatesProvider {
-    readonly currencyDescription$: Observable<CurrencyDescription[]>;
+    readonly currencyDescription$: Observable<DataState<CurrencyDescription[]>>;
     readonly optionalCurrencyNames$ = this.state.optionalCurrencyNames$;
     readonly isSelectedCurrencyNamesSetEmpty$: Observable<boolean>;
     readonly isOptionalCurrencyNamesSetEmpty$: Observable<boolean>;
@@ -29,6 +30,12 @@ export class CurrencyRatesProvider {
 
     fetchCurrencyRates(): Observable<CurrencyRate[]> {
         return this.state.selectedCurrencyNames$.pipe(
+            tap(() => {
+                this.state.setCurrencyDescriptions({
+                    status: 'loading',
+                    data: [],
+                });
+            }),
             switchMap((currencyNames) => {
                 if (currencyNames.size) {
                     return this.dataSource.getCurrencyRates(currencyNames);
@@ -37,8 +44,9 @@ export class CurrencyRatesProvider {
                 }
             }),
             tap((currencyRates) => {
-                this.state.setCurrencyDescription(
-                    currencyRates.map((currencyRate) => {
+                this.state.setCurrencyDescriptions({
+                    status: 'success',
+                    data: currencyRates.map((currencyRate) => {
                         const currencyCountry =
                             mapCurrencyCountries[currencyRate.name];
                         return {
@@ -48,7 +56,7 @@ export class CurrencyRatesProvider {
                             rate: currencyRate.rate,
                         };
                     }),
-                );
+                });
             }),
         );
     }
@@ -68,7 +76,9 @@ export class CurrencyRatesProvider {
         return this.state.getOptionalCurrencyNames();
     }
 
-    private createCurrencyDescription$(): Observable<CurrencyDescription[]> {
+    private createCurrencyDescription$(): Observable<
+        DataState<CurrencyDescription[]>
+    > {
         return merge(
             this.state.currencyDescription$,
             this.fetchCurrencyRates().pipe(switchMap(() => NEVER)),

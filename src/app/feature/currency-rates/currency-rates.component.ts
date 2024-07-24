@@ -9,17 +9,17 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzListModule } from 'ng-zorro-antd/list';
-import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { filter, interval } from 'rxjs';
+import { CurrenceSelectModalComponent } from './components/currency-select-modal/currency-select-modal.component';
 import { CurrencyName, CurrencyRate } from './models/currency-rate.model';
 import { CurrencyRatesDataSource } from './models/currency-rates-data-source.model';
 import { CurrencyRatesProvider } from './services/currancy-rates.provider';
 import { CurrencyRatesState } from './services/currancy-rates.state';
 import { currencyRatesDataSourceFactory } from './utils/currency-rates-data-source.factory';
-
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { CurrenceSelectModalComponent } from './components/currency-select-modal/currency-select-modal.component';
 
 @Component({
     selector: 'app-currency',
@@ -32,6 +32,8 @@ import { CurrenceSelectModalComponent } from './components/currency-select-modal
         NzModalModule,
         NzButtonModule,
         CurrenceSelectModalComponent,
+        NzSpinModule,
+        NzEmptyModule,
     ],
     templateUrl: 'currency-rates.component.html',
     styleUrl: './currency-rates.component.scss',

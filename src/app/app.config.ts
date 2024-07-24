@@ -7,10 +7,11 @@ import { CurrencyRatesComponent } from './feature/currency-rates/currency-rates.
 import { LoginComponent } from './feature/login/login.component';
 
 const appRoutes: Routes = [
-    { path: '', component: LoginComponent },
+    { path: 'login', component: LoginComponent },
     {
-        path: 'currency',
+        path: '',
         component: CurrencyRatesComponent,
+        pathMatch: 'full',
     },
     { path: '**', redirectTo: '/' },
 ];

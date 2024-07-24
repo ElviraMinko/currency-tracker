@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { DataState } from '../../../core/models/data-state.model';
 import {
     CurrencyDescription,
     CurrencyName,
@@ -14,8 +15,8 @@ export class CurrencyRatesState {
         Set<CurrencyName>
     >(new Set(['CNY', 'JPY', 'TRY']));
     private readonly currencyDescriptionSubject = new BehaviorSubject<
-        CurrencyDescription[]
-    >([]);
+        DataState<CurrencyDescription[]>
+    >({ status: 'idle', data: [] });
 
     readonly selectedCurrencyNames$ =
         this.selectedCurrencyNamesSubject.asObservable();
@@ -24,7 +25,9 @@ export class CurrencyRatesState {
     readonly currencyDescription$ =
         this.currencyDescriptionSubject.asObservable();
 
-    setCurrencyDescription(currencyRates: CurrencyDescription[]): void {
+    setCurrencyDescriptions(
+        currencyRates: DataState<CurrencyDescription[]>,
+    ): void {
         this.currencyDescriptionSubject.next(currencyRates);
     }
 
