@@ -1,8 +1,8 @@
-import { ApplicationConfig } from '@angular/core';
-import { provideRouter, Routes } from '@angular/router';
-
 import { provideHttpClient } from '@angular/common/http';
+import { ApplicationConfig } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideRouter, Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/auth.guard';
 import { CurrencyRatesComponent } from './feature/currency-rates/currency-rates.component';
 import { LoginComponent } from './feature/login/login.component';
 
@@ -11,7 +11,7 @@ const appRoutes: Routes = [
     {
         path: '',
         component: CurrencyRatesComponent,
-        pathMatch: 'full',
+        canActivate: [AuthGuard],
     },
     { path: '**', redirectTo: '/' },
 ];

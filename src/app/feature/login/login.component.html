@@ -4,7 +4,7 @@
     class="login-form"
     (ngSubmit)="submitForm()">
     <nz-form-item class="login-form-item">
-        <nz-form-control nzErrorTip="Некорректный логин">
+        <nz-form-control nzErrorTip="Неверный формат почты">
             <nz-input-group nzPrefixIcon="user">
                 <input
                     type="text"
@@ -16,7 +16,7 @@
         </nz-form-control>
     </nz-form-item>
     <nz-form-item class="login-form-item">
-        <nz-form-control nzErrorTip="Некорректный пароль">
+        <nz-form-control nzErrorTip="Неверный формат пароля">
             <nz-input-group nzPrefixIcon="lock">
                 <input
                     type="password"
@@ -38,7 +38,8 @@
         nz-button
         class="login-button"
         [nzType]="'primary'"
-        [disabled]="loginForm.invalid">
+        [disabled]="loginForm.invalid"
+        [nzLoading]="isLoading">
         Войти
     </button>
 </form>
