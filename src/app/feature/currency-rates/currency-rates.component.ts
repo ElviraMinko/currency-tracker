@@ -16,7 +16,7 @@ import { CurrencyRatesState } from './services/currancy-rates.state';
 import { currencyRatesDataSourceFactory } from './utils/currency-rates-data-source.factory';
 
 @Component({
-    selector: 'app-currency',
+    selector: 'ct-currency',
     standalone: true,
     imports: [
         CommonModule,

@@ -12,12 +12,14 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { AuthService } from '../../core/services/auth-service';
 
 type LoginFormGroup = FormGroup<{
@@ -27,7 +29,7 @@ type LoginFormGroup = FormGroup<{
 }>;
 
 @Component({
-    selector: 'app-login',
+    selector: 'ct-login',
     standalone: true,
     templateUrl: 'login.component.html',
     styleUrl: './login.component.scss',
@@ -36,9 +38,11 @@ type LoginFormGroup = FormGroup<{
         NzButtonModule,
         NzLayoutModule,
         NzFormModule,
+        NzCheckboxModule,
         NzInputModule,
         NzGridModule,
         NzIconModule,
+        NzTypographyModule,
         NzMessageModule,
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,

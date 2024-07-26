@@ -4,7 +4,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 
 @Component({
-    selector: 'my-app',
+    selector: 'ct-app',
     standalone: true,
     imports: [RouterOutlet, NzLayoutModule, NzButtonModule],
     templateUrl: 'app.component.html',
