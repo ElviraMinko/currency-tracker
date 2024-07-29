@@ -7,6 +7,7 @@ import { NzListModule } from 'ng-zorro-antd/list';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { filter } from 'rxjs';
+import { LayoutComponent } from '../../core/components/layout/layout.component';
 import { AuthService } from '../../core/services/auth-service';
 import { CurrenceSelectModalComponent } from './components/currency-select-modal/currency-select-modal.component';
 import { CurrencyName, CurrencyRate } from './models/currency-rate.model';
@@ -28,6 +29,7 @@ import { currencyRatesDataSourceFactory } from './utils/currency-rates-data-sour
         CurrenceSelectModalComponent,
         NzSpinModule,
         NzEmptyModule,
+        LayoutComponent,
     ],
     templateUrl: 'currency-rates.component.html',
     styleUrl: './currency-rates.component.scss',

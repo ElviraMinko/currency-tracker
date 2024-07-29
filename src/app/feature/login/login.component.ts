@@ -20,6 +20,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { LayoutComponent } from '../../core/components/layout/layout.component';
 import { AuthService } from '../../core/services/auth-service';
 
 type LoginFormGroup = FormGroup<{
@@ -44,6 +45,7 @@ type LoginFormGroup = FormGroup<{
         NzIconModule,
         NzTypographyModule,
         NzMessageModule,
+        LayoutComponent,
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })

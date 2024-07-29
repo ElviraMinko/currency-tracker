@@ -1,0 +1,17 @@
+:host {
+    height: 100%;
+}
+
+.inner-layout {
+    padding: 24px 24px 0 24px;
+    height: 100%;
+
+    .content {
+        padding: 24px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+}

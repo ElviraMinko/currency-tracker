@@ -1,37 +1,49 @@
-<!-- <div>{{ actualDateAndTime | date: 'yyyy-MM-dd HH:mm:ss ' }}</div> -->
-<p *ngIf="isSelectedCurrencyNamesSetEmpty$ | async">
-    <nz-empty nzNotFoundContent="Выберете валюту"></nz-empty>
-</p>
+<ct-layout>
+    <header class="header">
+        <p class="title">Курсы валют</p>
+        <a nz-button [nzSize]="'small'" nzType="link" (click)="logout()">
+            Выход
+        </a>
+    </header>
+    <content class="content">
+        <p *ngIf="isSelectedCurrencyNamesSetEmpty$ | async">
+            <nz-empty nzNotFoundContent="Выберете валюту"></nz-empty>
+        </p>
 
-@if (currencyDescription$ | async; as dataState) {
-    @if (dataState.status === 'loading') {
-        <nz-spin nzSimple [nzSize]="'large'"></nz-spin> `
-    } @else {
-        <nz-list class="currency-list">
-            @for (currency of dataState.data; track $index) {
-                <nz-list-item>
-                    <nz-list-item-meta
-                        nzAvatar="{{ currency.iconUrl }}"
-                        nzDescription="{{ currency.countryName }}">
-                        <nz-list-item-meta-title>
-                            {{ currency.name }}
-                        </nz-list-item-meta-title>
-                    </nz-list-item-meta>
-                    {{ currency.rate | number: '1.1-2' }}$
-                    <ul nz-list-item-actions>
-                        <nz-list-item-action>
-                            <a (click)="deleteCurrencyRate(currency)">
-                                Удалить
-                            </a>
-                        </nz-list-item-action>
-                    </ul>
-                </nz-list-item>
+        @if (currencyDescription$ | async; as dataState) {
+            @if (dataState.status === 'loading') {
+                <nz-spin nzSimple [nzSize]="'large'"></nz-spin> `
+            } @else {
+                <nz-list class="currency-list">
+                    @for (currency of dataState.data; track $index) {
+                        <nz-list-item>
+                            <nz-list-item-meta
+                                nzAvatar="{{ currency.iconUrl }}"
+                                nzDescription="{{ currency.countryName }}">
+                                <nz-list-item-meta-title>
+                                    {{ currency.name }}
+                                </nz-list-item-meta-title>
+                            </nz-list-item-meta>
+                            {{ currency.rate | number: '1.1-2' }}$
+                            <ul nz-list-item-actions>
+                                <nz-list-item-action>
+                                    <a (click)="deleteCurrencyRate(currency)">
+                                        Удалить
+                                    </a>
+                                </nz-list-item-action>
+                            </ul>
+                        </nz-list-item>
+                    }
+                </nz-list>
             }
-        </nz-list>
-    }
-}
-<div *ngIf="!(isOptionalCurrencyNamesSetEmpty$ | async)">
-    <button nz-button nzType="primary" (click)="openCurrencySelectModal()">
-        <span>Добавить валюту</span>
-    </button>
-</div>
+        }
+        <div *ngIf="!(isOptionalCurrencyNamesSetEmpty$ | async)">
+            <button
+                nz-button
+                nzType="primary"
+                (click)="openCurrencySelectModal()">
+                <span>Добавить валюту</span>
+            </button>
+        </div>
+    </content>
+</ct-layout>

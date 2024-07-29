@@ -1,45 +1,50 @@
-<form
-    nz-form
-    [formGroup]="loginForm"
-    class="login-form"
-    (ngSubmit)="submitForm()">
-    <nz-form-item class="login-form-item">
-        <nz-form-control nzErrorTip="Неверный формат почты">
-            <nz-input-group nzPrefixIcon="user">
-                <input
-                    type="text"
-                    nz-input
-                    formControlName="login"
-                    placeholder="Логин"
-                    class="input" />
-            </nz-input-group>
-        </nz-form-control>
-    </nz-form-item>
-    <nz-form-item class="login-form-item">
-        <nz-form-control nzErrorTip="Неверный формат пароля">
-            <nz-input-group nzPrefixIcon="lock">
-                <input
-                    type="password"
-                    nz-input
-                    formControlName="password"
-                    placeholder="Пароль"
-                    class="input" />
-            </nz-input-group>
-        </nz-form-control>
-    </nz-form-item>
-    <div nz-row>
-        <div nz-col [nzSpan]="24">
-            <label nz-checkbox formControlName="remember">
-                <span>Запомнить меня</span>
-            </label>
-        </div>
-    </div>
-    <button
-        nz-button
-        class="login-button"
-        [nzType]="'primary'"
-        [disabled]="loginForm.invalid"
-        [nzLoading]="isLoading">
-        Войти
-    </button>
-</form>
+<ct-layout>
+    <header class="header">
+        <p class="title">Вход</p>
+    </header>
+    <content>
+        <form
+            nz-form
+            [formGroup]="loginForm"
+            class="login-form"
+            (ngSubmit)="submitForm()">
+            <nz-form-item class="login-form-item">
+                <nz-form-control nzErrorTip="Неверный формат почты">
+                    <nz-input-group nzPrefixIcon="user">
+                        <input
+                            type="text"
+                            nz-input
+                            formControlName="login"
+                            placeholder="Логин" />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="login-form-item">
+                <nz-form-control nzErrorTip="Неверный формат пароля">
+                    <nz-input-group nzPrefixIcon="lock">
+                        <input
+                            type="password"
+                            nz-input
+                            formControlName="password"
+                            placeholder="Пароль" />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+            <div nz-row>
+                <div nz-col [nzSpan]="24">
+                    <label nz-checkbox formControlName="remember">
+                        <span>Запомнить меня</span>
+                    </label>
+                </div>
+            </div>
+            <button
+                nz-button
+                class="login-button"
+                [nzType]="'primary'"
+                [disabled]="loginForm.invalid"
+                [nzLoading]="isLoading">
+                Войти
+            </button>
+        </form>
+    </content>
+</ct-layout>
