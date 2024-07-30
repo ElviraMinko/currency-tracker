@@ -1,0 +1,32 @@
+{
+    "login": {
+        "loginComponent": {
+            "pageTitle": "Вход",
+            "rememberCheckbox": "Запомнить меня",
+            "placeholderLogin": "Логин",
+            "placeholderPassword": "пароль",
+            "enterButtonLabel": "Войти",
+            "loginError": "Неправильный формат почты",
+            "passwordError": "Неправильный формат пароля"
+        }
+    },
+
+    "currencyRate": {
+        "currencyRateComponent": {
+            "pageTitle": "Курсы валют",
+            "logoutLinkLabel": "Выйти",
+            "emptyCurrencyLabel": "Выберете валюту",
+            "deleteButtonLabel": "Удалить",
+            "addCurrencyButtonLabel": "Добавьте валюту"
+        },
+
+        "currencySelectModal": {
+            "addButtonModalLabel": "Добавить",
+            "modalTitle": "Выбор валют"
+        }
+    },
+
+    "footer": {
+        "developerLabel": "Создатель - Эльвира Минько"
+    }
+}

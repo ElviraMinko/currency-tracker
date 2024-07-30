@@ -1,10 +1,12 @@
+@import 'variables';
+
 :host {
-    height: 100%;
+    height: calc(100% - $footerHeigth);
 }
 
 .inner-layout {
     padding: 24px 24px 0 24px;
-    height: 100%;
+    height: calc(100% - $headerHeigth);
 
     .content {
         padding: 24px;
