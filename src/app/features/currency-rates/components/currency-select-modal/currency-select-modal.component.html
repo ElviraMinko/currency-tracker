@@ -1,0 +1,10 @@
+<nz-checkbox-wrapper (nzOnChange)="updateTickedCurrencyNames($event)" class="checkbox-wrapper">
+    <label class="checkbox" *ngFor="let currencyName of data" nz-checkbox nzValue="{{ currencyName }}">
+        {{ currencyName }}
+    </label>
+</nz-checkbox-wrapper>
+<div *nzModalFooter>
+    <button nz-button nzType="primary" (click)="closeModal()">{{
+        'currencyRate.currencySelectModal.addButtonModalLabel' | transloco
+    }}</button>
+</div>

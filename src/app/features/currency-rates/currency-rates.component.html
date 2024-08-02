@@ -1,13 +1,14 @@
 <ct-layout>
     <header class="header">
-        <p class="title">Курсы валют</p>
+        <p class="title">{{ 'currencyRate.currencyRateComponent.pageTitle' | transloco }}</p>
         <a nz-button [nzSize]="'small'" nzType="link" (click)="logout()">
-            Выход
+            {{ 'currencyRate.currencyRateComponent.logoutLinkLabel' | transloco }}
         </a>
     </header>
     <content class="content">
         <p *ngIf="isSelectedCurrencyNamesSetEmpty$ | async">
-            <nz-empty nzNotFoundContent="Выберете валюту"></nz-empty>
+            <nz-empty [nzNotFoundContent]="'currencyRate.currencyRateComponent.emptyCurrencyLabel' | transloco">
+            </nz-empty>
         </p>
 
         @if (currencyDescription$ | async; as dataState) {
@@ -28,7 +29,7 @@
                             <ul nz-list-item-actions>
                                 <nz-list-item-action>
                                     <a (click)="deleteCurrencyRate(currency)">
-                                        Удалить
+                                        {{ 'currencyRate.currencyRateComponent.deleteButtonLabel' | transloco }}
                                     </a>
                                 </nz-list-item-action>
                             </ul>
@@ -38,11 +39,8 @@
             }
         }
         <div *ngIf="!(isOptionalCurrencyNamesSetEmpty$ | async)">
-            <button
-                nz-button
-                nzType="primary"
-                (click)="openCurrencySelectModal()">
-                <span>Добавить валюту</span>
+            <button nz-button nzType="primary" (click)="openCurrencySelectModal()">
+                <span>{{ 'currencyRate.currencyRateComponent.addCurrencyButtonLabel' | transloco }}</span>
             </button>
         </div>
     </content>

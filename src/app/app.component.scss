@@ -1,3 +1,5 @@
+@import 'variables';
+
 :host {
     display: contents;
 }
@@ -6,6 +8,17 @@
     height: 100%;
 
     .footer {
+        height: $footerHeigth;
+        display: flex;
+        flex-direction: column;
         text-align: center;
+
+        .change-language {
+            margin-bottom: 0;
+
+            .active {
+                color: grey;
+            }
+        }
     }
 }

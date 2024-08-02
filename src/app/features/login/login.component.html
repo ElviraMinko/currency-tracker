@@ -1,39 +1,35 @@
 <ct-layout>
     <header class="header">
-        <p class="title">Вход</p>
+        <p class="title">{{ 'login.loginComponent.pageTitle' | transloco }}</p>
     </header>
     <content>
-        <form
-            nz-form
-            [formGroup]="loginForm"
-            class="login-form"
-            (ngSubmit)="submitForm()">
+        <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
             <nz-form-item class="login-form-item">
-                <nz-form-control nzErrorTip="Неверный формат почты">
+                <nz-form-control [nzErrorTip]="'login.loginComponent.loginError' | transloco">
                     <nz-input-group nzPrefixIcon="user">
                         <input
                             type="text"
                             nz-input
                             formControlName="login"
-                            placeholder="Логин" />
+                            [placeholder]="'login.loginComponent.placeholderLogin' | transloco" />
                     </nz-input-group>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item class="login-form-item">
-                <nz-form-control nzErrorTip="Неверный формат пароля">
+                <nz-form-control [nzErrorTip]="'login.loginComponent.passwordError' | transloco">
                     <nz-input-group nzPrefixIcon="lock">
                         <input
                             type="password"
                             nz-input
                             formControlName="password"
-                            placeholder="Пароль" />
+                            [placeholder]="'login.loginComponent.placeholderPassword' | transloco" />
                     </nz-input-group>
                 </nz-form-control>
             </nz-form-item>
             <div nz-row>
                 <div nz-col [nzSpan]="24">
                     <label nz-checkbox formControlName="remember">
-                        <span>Запомнить меня</span>
+                        <span>{{ 'login.loginComponent.rememberCheckbox' | transloco }}</span>
                     </label>
                 </div>
             </div>
@@ -43,7 +39,7 @@
                 [nzType]="'primary'"
                 [disabled]="loginForm.invalid"
                 [nzLoading]="isLoading">
-                Войти
+                {{ 'login.loginComponent.enterButtonLabel' | transloco }}
             </button>
         </form>
     </content>

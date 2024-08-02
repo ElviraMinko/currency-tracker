@@ -1,15 +1,18 @@
 :host {
-    height: 100%;
+    display: contents;
 
     .content {
+        height: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
     }
 
     .currency-list {
         min-width: 300px;
         margin-bottom: 12px;
+        overflow-y: auto;
     }
 
     .header {

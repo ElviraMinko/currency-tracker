@@ -1,16 +1,7 @@
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-} from '@angular/core';
-import {
-    FormControl,
-    FormGroup,
-    NonNullableFormBuilder,
-    ReactiveFormsModule,
-    Validators,
-} from '@angular/forms';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslocoModule } from '@jsverse/transloco';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -46,6 +37,7 @@ type LoginFormGroup = FormGroup<{
         NzTypographyModule,
         NzMessageModule,
         LayoutComponent,
+        TranslocoModule,
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -73,11 +65,7 @@ export class LoginComponent {
             return;
         }
         this.authService
-            .login(
-                this.loginForm.value.login,
-                this.loginForm.value.password,
-                this.loginForm.value.remember,
-            )
+            .login(this.loginForm.value.login, this.loginForm.value.password, this.loginForm.value.remember)
             .subscribe({
                 next: () => {
                     this.router.navigate(['/currency']);
@@ -91,22 +79,12 @@ export class LoginComponent {
     }
 
     createErrorMessage(): void {
-        this.messageService.create(
-            'error',
-            'Пользователя с таким логином и паролем не существует',
-        );
+        this.messageService.create('error', 'Пользователя с таким логином и паролем не существует');
     }
 
     private createLoginForm(): LoginFormGroup {
         return this.formBuilder.group({
-            login: [
-                '',
-                [
-                    Validators.required,
-                    Validators.email,
-                    Validators.minLength(4),
-                ],
-            ],
+            login: ['', [Validators.required, Validators.email, Validators.minLength(4)]],
             password: ['', [Validators.required, Validators.minLength(4)]],
             remember: [true],
         });

@@ -1,0 +1,32 @@
+{
+    "login": {
+        "loginComponent": {
+            "pageTitle": "Enter",
+            "rememberCheckbox": "Remember me",
+            "placeholderLogin": "login",
+            "placeholderPassword": "password",
+            "enterButtonLabel": "Enter",
+            "loginError": "Invalid email format",
+            "passwordError": "Invalid password format"
+        }
+    },
+
+    "currencyRate": {
+        "currencyRateComponent": {
+            "pageTitle": "Currency Rates",
+            "logoutLinkLabel": "Logout",
+            "emptyCurrencyLabel": "Choose currencies",
+            "deleteButtonLabel": "Delete",
+            "addCurrencyButtonLabel": "Add currencies"
+        },
+
+        "currencySelectModal": {
+            "addButtonModalLabel": "Add",
+            "modalTitle": "Choose currencies"
+        }
+    },
+
+    "footer": {
+        "developerLabel": "Developer - Minko Elvira"
+    }
+}

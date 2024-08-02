@@ -1,10 +1,13 @@
 import { provideHttpClient } from '@angular/common/http';
 import { ApplicationConfig } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideRouter, Routes } from '@angular/router';
+import { Routes, provideRouter } from '@angular/router';
+import { provideTransloco } from '@jsverse/transloco';
+import { avalibleLangs } from './core/constansts/i18n.constant';
 import { AuthGuard } from './core/guards/auth.guard';
-import { CurrencyRatesComponent } from './feature/currency-rates/currency-rates.component';
-import { LoginComponent } from './feature/login/login.component';
+import { CurrencyRatesComponent } from './features/currency-rates/currency-rates.component';
+import { LoginComponent } from './features/login/login.component';
+import { TranslocoHttpLoader } from './transloco-loader';
 
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -21,5 +24,13 @@ export const appConfig: ApplicationConfig = {
         provideRouter(appRoutes),
         provideAnimations(),
         provideHttpClient(),
+        provideTransloco({
+            config: {
+                availableLangs: avalibleLangs,
+                defaultLang: 'en',
+                reRenderOnLangChange: true,
+            },
+            loader: TranslocoHttpLoader,
+        }),
     ],
 };

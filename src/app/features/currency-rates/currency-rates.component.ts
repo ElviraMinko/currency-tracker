@@ -1,6 +1,7 @@
 import { AsyncPipe, CommonModule, DecimalPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzListModule } from 'ng-zorro-antd/list';
@@ -30,6 +31,7 @@ import { currencyRatesDataSourceFactory } from './utils/currency-rates-data-sour
         NzSpinModule,
         NzEmptyModule,
         LayoutComponent,
+        TranslocoModule,
     ],
     templateUrl: 'currency-rates.component.html',
     styleUrl: './currency-rates.component.scss',
@@ -45,10 +47,8 @@ import { currencyRatesDataSourceFactory } from './utils/currency-rates-data-sour
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CurrencyRatesComponent {
-    readonly isSelectedCurrencyNamesSetEmpty$ =
-        this.provider.isSelectedCurrencyNamesSetEmpty$;
-    readonly isOptionalCurrencyNamesSetEmpty$ =
-        this.provider.isOptionalCurrencyNamesSetEmpty$;
+    readonly isSelectedCurrencyNamesSetEmpty$ = this.provider.isSelectedCurrencyNamesSetEmpty$;
+    readonly isOptionalCurrencyNamesSetEmpty$ = this.provider.isOptionalCurrencyNamesSetEmpty$;
     readonly currencyDescription$ = this.provider.currencyDescription$;
     readonly optionalCurrencyNames$ = this.provider.optionalCurrencyNames$;
 
@@ -56,6 +56,7 @@ export class CurrencyRatesComponent {
         private readonly authService: AuthService,
         private readonly provider: CurrencyRatesProvider,
         private readonly nzModalService: NzModalService,
+        private translocoService: TranslocoService,
     ) {}
 
     deleteCurrencyRate(currency: CurrencyRate): void {
@@ -64,20 +65,14 @@ export class CurrencyRatesComponent {
 
     openCurrencySelectModal(): void {
         this.nzModalService
-            .create<
-                CurrenceSelectModalComponent,
-                Set<CurrencyName>,
-                CurrencyName[]
-            >({
-                nzTitle: 'Выбор валют',
+            .create<CurrenceSelectModalComponent, Set<CurrencyName>, CurrencyName[]>({
+                nzTitle: this.translocoService.translate('currencyRate.currencySelectModal.modalTitle'),
                 nzContent: CurrenceSelectModalComponent,
                 nzData: this.provider.getOptionalCurrencyNames(),
                 nzFooter: null,
                 nzWidth: 300,
             })
-            .afterClose.pipe(
-                filter((result): result is CurrencyName[] => !!result),
-            )
+            .afterClose.pipe(filter((result): result is CurrencyName[] => !!result))
             .subscribe((result) => {
                 this.provider.addCurrencyRate(result);
             });
