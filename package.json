@@ -6,7 +6,8 @@
         "start": "ng serve",
         "build": "ng build",
         "watch": "ng build --watch --configuration development",
-        "test": "ng test"
+        "test": "ng test",
+        "deploy": "ng b --configuration production --base-href https://ElviraMinko.github.io/currency-tracker/ && npx ngh --dir dist/browser"
     },
     "private": true,
     "dependencies": {

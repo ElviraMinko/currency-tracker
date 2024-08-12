@@ -9,23 +9,20 @@ export const mockRecordCurrencyRates: Record<CurrencyName, number> = {
     USD: 1,
 };
 
-export const mapCurrencyCountries: Record<
-    CurrencyName,
-    { iconUrl: string; countryName: string }
-> = {
+export const mapCurrencyCountries: Record<CurrencyName, { iconUrl: string; countryName: string }> = {
     RUB: {
-        iconUrl: '/assets/flags/russia.png',
+        iconUrl: './assets/flags/russia.png',
         countryName: 'Россия',
     },
-    EUR: { iconUrl: '/assets/flags/eu.png', countryName: 'ЕС' },
-    CNY: { iconUrl: '/assets/flags/china.png', countryName: 'Китай' },
+    EUR: { iconUrl: './assets/flags/eu.png', countryName: 'ЕС' },
+    CNY: { iconUrl: './assets/flags/china.png', countryName: 'Китай' },
     JPY: {
-        iconUrl: '/assets/flags/japan.png',
+        iconUrl: './assets/flags/japan.png',
         countryName: 'Япония',
     },
     TRY: {
-        iconUrl: '/assets/flags/turkiye.png',
+        iconUrl: './assets/flags/turkiye.png',
         countryName: 'Турция',
     },
-    USD: { iconUrl: '/assets/flags/usa.png', countryName: 'США' },
+    USD: { iconUrl: './assets/flags/usa.png', countryName: 'США' },
 };
