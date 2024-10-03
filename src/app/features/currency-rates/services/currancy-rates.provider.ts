@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { map, merge, NEVER, Observable, of, switchMap, tap } from 'rxjs';
 import { DataState } from '../../../core/models/data-state.model';
-import { CurrencyDescription, CurrencyName, CurrencyRate } from '../models/currency-rate.model';
+import {
+    CurrencyDescription,
+    CurrencyName,
+    CurrencyRate,
+} from '../models/currency-rate.model';
 import { CurrencyRatesDataSource } from '../models/currency-rates-data-source.model';
 import { mapCurrencyCountries } from './../constants/currency-rate.constant';
 import { CurrencyRatesState } from './currancy-rates.state';
@@ -18,8 +22,10 @@ export class CurrencyRatesProvider {
         private readonly state: CurrencyRatesState,
     ) {
         this.currencyDescription$ = this.createCurrencyDescription$();
-        this.isSelectedCurrencyNamesSetEmpty$ = this.createisSelectedCurrencyNamesSetEmpty$();
-        this.isOptionalCurrencyNamesSetEmpty$ = this.createOptionalCurrencyNames$();
+        this.isSelectedCurrencyNamesSetEmpty$ =
+            this.createisSelectedCurrencyNamesSetEmpty$();
+        this.isOptionalCurrencyNamesSetEmpty$ =
+            this.createOptionalCurrencyNames$();
     }
 
     fetchCurrencyRates(): Observable<CurrencyRate[]> {
@@ -41,7 +47,8 @@ export class CurrencyRatesProvider {
                 this.state.setCurrencyDescriptions({
                     status: 'success',
                     data: currencyRates.map((currencyRate) => {
-                        const currencyCountry = mapCurrencyCountries[currencyRate.name];
+                        const currencyCountry =
+                            mapCurrencyCountries[currencyRate.name];
                         return {
                             iconUrl: currencyCountry.iconUrl,
                             countryName: currencyCountry.countryName,
@@ -69,14 +76,23 @@ export class CurrencyRatesProvider {
         return this.state.getOptionalCurrencyNames();
     }
 
-    private createCurrencyDescription$(): Observable<DataState<CurrencyDescription[]>> {
-        return merge(this.state.currencyDescription$, this.fetchCurrencyRates().pipe(switchMap(() => NEVER)));
+    private createCurrencyDescription$(): Observable<
+        DataState<CurrencyDescription[]>
+    > {
+        return merge(
+            this.state.currencyDescription$,
+            this.fetchCurrencyRates().pipe(switchMap(() => NEVER)),
+        );
     }
 
     private createOptionalCurrencyNames$(): Observable<boolean> {
-        return this.state.optionalCurrencyNames$.pipe(map((optionalCurrencyNames) => !optionalCurrencyNames.size));
+        return this.state.optionalCurrencyNames$.pipe(
+            map((optionalCurrencyNames) => !optionalCurrencyNames.size),
+        );
     }
     private createisSelectedCurrencyNamesSetEmpty$(): Observable<boolean> {
-        return this.state.selectedCurrencyNames$.pipe(map((selectedCurrencyNames) => !selectedCurrencyNames.size));
+        return this.state.selectedCurrencyNames$.pipe(
+            map((selectedCurrencyNames) => !selectedCurrencyNames.size),
+        );
     }
 }

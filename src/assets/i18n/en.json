@@ -1,7 +1,7 @@
 {
     "login": {
         "loginComponent": {
-            "pageTitle": "Login",
+            "pageTitle": "Enter",
             "rememberCheckbox": "Remember me",
             "placeholderLogin": "login",
             "placeholderPassword": "password",
@@ -13,7 +13,7 @@
 
     "currencyRate": {
         "currencyRateComponent": {
-            "pageTitle": "Currency rates",
+            "pageTitle": "Currency Rates",
             "logoutLinkLabel": "Logout",
             "emptyCurrencyLabel": "Choose currencies",
             "deleteButtonLabel": "Delete",

@@ -1,8 +1,0 @@
-@if (dataState$ | async; as dataState) {
-    @if (dataState.status === 'loading') {
-        <div class="view-spin">
-        <nz-spin  class="loading" [nzSize]="'large'"></nz-spin> 
-    </div>
-    }
-    <canvas class="canvas" id="canvas">{{ chart }}</canvas>
-}
