@@ -33,6 +33,14 @@
                                     </a>
                                 </nz-list-item-action>
                             </ul>
+                            <ul>
+                                <span
+                                    class="graphic-icon"
+                                    nz-icon
+                                    nzType="dot-chart"
+                                    nzTheme="outline"
+                                    (click)="redirectToGraphic(currency.rate, currency.name)"></span>
+                            </ul>
                         </nz-list-item>
                     }
                 </nz-list>

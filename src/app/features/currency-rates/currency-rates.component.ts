@@ -1,9 +1,11 @@
 import { AsyncPipe, CommonModule, DecimalPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
@@ -16,7 +18,6 @@ import { CurrencyRatesDataSource } from './models/currency-rates-data-source.mod
 import { CurrencyRatesProvider } from './services/currancy-rates.provider';
 import { CurrencyRatesState } from './services/currancy-rates.state';
 import { currencyRatesDataSourceFactory } from './utils/currency-rates-data-source.factory';
-
 @Component({
     selector: 'ct-currency',
     standalone: true,
@@ -32,6 +33,7 @@ import { currencyRatesDataSourceFactory } from './utils/currency-rates-data-sour
         NzEmptyModule,
         LayoutComponent,
         TranslocoModule,
+        NzIconModule,
     ],
     templateUrl: 'currency-rates.component.html',
     styleUrl: './currency-rates.component.scss',
@@ -57,6 +59,7 @@ export class CurrencyRatesComponent {
         private readonly provider: CurrencyRatesProvider,
         private readonly nzModalService: NzModalService,
         private translocoService: TranslocoService,
+        private readonly router: Router,
     ) {}
 
     deleteCurrencyRate(currency: CurrencyRate): void {
@@ -80,5 +83,9 @@ export class CurrencyRatesComponent {
 
     logout(): void {
         this.authService.logout();
+    }
+
+    redirectToGraphic(rate: number, lang: string): void {
+        this.router.navigate(['/graphic/' + lang], { state: { currencyRate: rate } });
     }
 }
