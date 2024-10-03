@@ -1,7 +1,7 @@
 {
     "login": {
         "loginComponent": {
-            "pageTitle": "Enter",
+            "pageTitle": "Login",
             "rememberCheckbox": "Remember me",
             "placeholderLogin": "login",
             "placeholderPassword": "password",
@@ -13,7 +13,7 @@
 
     "currencyRate": {
         "currencyRateComponent": {
-            "pageTitle": "Currency Rates",
+            "pageTitle": "Currency rates",
             "logoutLinkLabel": "Logout",
             "emptyCurrencyLabel": "Choose currencies",
             "deleteButtonLabel": "Delete",
@@ -23,6 +23,19 @@
         "currencySelectModal": {
             "addButtonModalLabel": "Add",
             "modalTitle": "Choose currencies"
+        }
+    },
+
+    "currencyGraphics": {
+        "currencyGraphicsComponent": {
+            "pageTitle": "Graphic of",
+            "logout": "Logout",
+            "backButtonLabel": "Back"
+        },
+
+        "currencyRateScatter": {
+            "errorTitle": "Error of loading data",
+            "errorMessage": "Please check your Internet conection"
         }
     },
 

@@ -1,0 +1,11 @@
+@if (dataState?.status === 'loading') {
+    <nz-spin class="loading" [nzSize]="'large'"></nz-spin>
+} @else if (dataState?.status === 'error') {
+    <nz-result
+        nzTitle="{{ 'currencyGraphics.currencyRateScatter.errorTitle' | transloco }}"
+        nzStatus="error"
+        nzSubTitle="{{ 'currencyGraphics.currencyRateScatter.errorMessage' | transloco }}">
+    </nz-result>
+} @else {
+    <canvas class="canvas" #canvas></canvas>
+}
