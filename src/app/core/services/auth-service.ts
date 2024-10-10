@@ -10,11 +10,7 @@ export class AuthService {
 
     constructor(private readonly router: Router) {}
 
-    login(
-        login: string,
-        password: string,
-        remember: boolean,
-    ): Observable<void> {
+    login(login: string, password: string, remember: boolean): Observable<void> {
         return new Observable<void>((subscriber) => {
             if (login === '123@com' && password === 'admin1') {
                 this.setIsLoggedIn(true, remember);

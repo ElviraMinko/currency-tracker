@@ -1,11 +1,11 @@
-import { CurrencyName } from '../models/currency-rate.model';
+import { CurrencyName } from './../../../core/models/currency-name.model';
 
 export const mockRecordCurrencyRates: Record<CurrencyName, number> = {
-    RUB: 0.3,
-    EUR: 0.4,
+    RUB: 90,
+    EUR: 0.9,
     CNY: 0.8,
-    JPY: 0.5,
-    TRY: 0.1,
+    JPY: 1.2,
+    TRY: 2,
     USD: 1,
 };
 

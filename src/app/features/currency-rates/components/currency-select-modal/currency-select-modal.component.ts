@@ -5,9 +5,10 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NZ_MODAL_DATA, NzModalModule, NzModalRef } from 'ng-zorro-antd/modal';
-import { CurrencyName } from '../../models/currency-rate.model';
+import { CurrencyName } from './../../../../core/models/currency-name.model';
 
 @Component({
+    selector: 'ct-currency-select-modal',
     standalone: true,
     templateUrl: 'currency-select-modal.component.html',
     styleUrl: './currency-select-modal.component.scss',

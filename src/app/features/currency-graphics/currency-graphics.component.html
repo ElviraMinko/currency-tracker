@@ -1,0 +1,20 @@
+<ct-layout>
+    <header class="header">
+        <div class="left-part-header">
+            <nz-space [nzSize]="22">
+                <p *nzSpaceItem class="title"
+                    >{{ 'currencyGraphics.currencyGraphicsComponent.pageTitle' | transloco }} {{ currencyName }}</p
+                >
+                <a *nzSpaceItem (click)="redirectToCurrencyRatesPage()">{{
+                    'currencyGraphics.currencyGraphicsComponent.backButtonLabel' | transloco
+                }}</a>
+            </nz-space>
+        </div>
+        <a nz-button [nzSize]="'small'" nzType="link" (click)="logout()">
+            {{ 'currencyGraphics.currencyGraphicsComponent.logout' | transloco }}
+        </a>
+    </header>
+    <content class="content">
+        <ct-currency-rate-scatter [currencyName]="currencyName"></ct-currency-rate-scatter>
+    </content>
+</ct-layout>

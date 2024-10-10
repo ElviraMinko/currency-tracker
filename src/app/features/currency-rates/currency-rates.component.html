@@ -26,11 +26,20 @@
                                 </nz-list-item-meta-title>
                             </nz-list-item-meta>
                             {{ currency.rate | number: '1.1-2' }}$
+
                             <ul nz-list-item-actions>
                                 <nz-list-item-action>
-                                    <a (click)="deleteCurrencyRate(currency)">
-                                        {{ 'currencyRate.currencyRateComponent.deleteButtonLabel' | transloco }}
-                                    </a>
+                                    <div class="actions">
+                                        <span
+                                            class="graphic-icon"
+                                            nz-icon
+                                            nzType="dot-chart"
+                                            nzTheme="outline"
+                                            (click)="redirectToGraphic(currency.rate, currency.name)"></span>
+                                        <a (click)="deleteCurrencyRate(currency)">
+                                            {{ 'currencyRate.currencyRateComponent.deleteButtonLabel' | transloco }}
+                                        </a>
+                                    </div>
                                 </nz-list-item-action>
                             </ul>
                         </nz-list-item>

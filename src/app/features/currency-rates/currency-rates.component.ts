@@ -1,24 +1,26 @@
 import { AsyncPipe, CommonModule, DecimalPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { filter } from 'rxjs';
 import { LayoutComponent } from '../../core/components/layout/layout.component';
 import { AuthService } from '../../core/services/auth-service';
+import { CurrencyName } from './../../core/models/currency-name.model';
 import { CurrenceSelectModalComponent } from './components/currency-select-modal/currency-select-modal.component';
-import { CurrencyName, CurrencyRate } from './models/currency-rate.model';
+import { CurrencyRate } from './models/currency-rate.model';
 import { CurrencyRatesDataSource } from './models/currency-rates-data-source.model';
 import { CurrencyRatesProvider } from './services/currancy-rates.provider';
 import { CurrencyRatesState } from './services/currancy-rates.state';
 import { currencyRatesDataSourceFactory } from './utils/currency-rates-data-source.factory';
-
 @Component({
-    selector: 'ct-currency',
+    selector: 'ct-currency-rates',
     standalone: true,
     imports: [
         CommonModule,
@@ -32,6 +34,7 @@ import { currencyRatesDataSourceFactory } from './utils/currency-rates-data-sour
         NzEmptyModule,
         LayoutComponent,
         TranslocoModule,
+        NzIconModule,
     ],
     templateUrl: 'currency-rates.component.html',
     styleUrl: './currency-rates.component.scss',
@@ -57,6 +60,7 @@ export class CurrencyRatesComponent {
         private readonly provider: CurrencyRatesProvider,
         private readonly nzModalService: NzModalService,
         private translocoService: TranslocoService,
+        private readonly router: Router,
     ) {}
 
     deleteCurrencyRate(currency: CurrencyRate): void {
@@ -80,5 +84,9 @@ export class CurrencyRatesComponent {
 
     logout(): void {
         this.authService.logout();
+    }
+
+    redirectToGraphic(rate: number, lang: string): void {
+        this.router.navigate(['/graphic/' + lang], { state: { currencyRate: rate } });
     }
 }
