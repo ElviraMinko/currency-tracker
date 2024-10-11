@@ -26,6 +26,19 @@
         }
     },
 
+    "currencyGraphics": {
+        "currencyGraphicsComponent": {
+            "pageTitle": "График",
+            "logout": "Выйти",
+            "backButtonLabel": "Назад"
+        },
+
+        "currencyRateScatter": {
+            "errorTitle": "Ошибка загрузки данных",
+            "errorMessage": "Пожалуйста, проверьте ваше интернет соединение"
+        }
+    },
+
     "footer": {
         "developerLabel": "Создатель - Эльвира Минько"
     }

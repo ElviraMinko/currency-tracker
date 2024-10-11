@@ -26,6 +26,19 @@
         }
     },
 
+    "currencyGraphics": {
+        "currencyGraphicsComponent": {
+            "pageTitle": "Graphic of",
+            "logout": "Logout",
+            "backButtonLabel": "Back"
+        },
+
+        "currencyRateScatter": {
+            "errorTitle": "Error of loading data",
+            "errorMessage": "Please check your Internet conection"
+        }
+    },
+
     "footer": {
         "developerLabel": "Developer - Minko Elvira"
     }
